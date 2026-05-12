@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coin Flip Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 40px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .stat {
+            background: #f9fafb;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .stat p {
+            margin: 8px 0 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .positive { color: #16a34a; }
+        .negative { color: #dc2626; }
+
+        .button {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: #2563eb;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">DecisionLab</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Coin Flip Simulation Results</h1>
+        <p>Your bankroll changed over {{ trials }} coin flips.</p>
+    </div>
+
+    <div class="card grid">
+        <div class="stat">
+            <h3>Starting Money</h3>
+            <p>${{ starting_money }}</p>
+        </div>
+
+        <div class="stat">
+            <h3>Final Money</h3>
+            <p>${{ final_money }}</p>
+        </div>
+
+        <div class="stat">
+            <h3>Profit / Loss</h3>
+            <p class="{% if profit >= 0 %}positive{% else %}negative{% endif %}">
+                ${{ profit }}
+            </p>
+        </div>
+
+        <div class="stat">
+            <h3>Wins</h3>
+            <p>{{ wins }}</p>
+        </div>
+
+        <div class="stat">
+            <h3>Losses</h3>
+            <p>{{ losses }}</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Bankroll Over Time</h2>
+        <canvas id="bankrollChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>Bankroll History</h2>
+        <p>First 20 bankroll values:</p>
+        <p>{{ history[:20] }}</p>
+    </div>
+
+    <a class="button" href="/simulate">Run Another Simulation</a>
+    <a class="button" href="/dashboard">Back to Dashboard</a>
+</div>
+
+<script>
+    const bankrollHistory = JSON.parse('{{ history | tojson | safe }}');
+    const labels = bankrollHistory.map((_, index) => index + 1);
+
+    const ctx = document.getElementById('bankrollChart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Bankroll',
+                data: bankrollHistory,
+                borderWidth: 3,
+                tension: 0.25
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Flip Number'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Bankroll ($)'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

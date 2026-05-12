@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DecisionLab Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 40px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .hero {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            margin-top: 0;
+            font-size: 36px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 16px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        DecisionLab
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to DecisionLab</h1>
+            <p>Explore probability, strategy, and decision-making through quant simulations.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <h2>Coin Flip Betting Simulator</h2>
+                <p>Simulate repeated bets, track wins and losses, and analyze final outcomes.</p>
+                <a class="button" href="/simulate">Run Simulation</a>
+            </div>
+
+            <div class="card">
+                <h2>Blackjack Simulator</h2>
+                <p>Play hands against a dealer and test hit/stand decision-making under uncertainty.</p>
+                <a class="button" href="/blackjack">Play Blackjack</a>
+            </div>
+
+            <div class="card">
+                <h2>Coming Soon: Optimal Stopping</h2>
+                <p>Find the best time to stop based on expected future value.</p>
+                <a class="button" href="#">Locked</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
